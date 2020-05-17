@@ -10,10 +10,11 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .swiper-item {
   width: 100%;
   flex-shrink: 0;
+  line-height: 0;
 }
 .swiper-item img {
   width: 100%;

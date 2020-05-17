@@ -39,5 +39,4 @@ export default {
 </script>
 
 <style scoped>
-@import url("//at.alicdn.com/t/font_1804924_rvsr4fk5xkk.css");
 </style>

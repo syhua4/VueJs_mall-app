@@ -1,3 +1,8 @@
+const path = require("path");
+// const utils = require("./utils");
+const resolve = dir => {
+  return path.join(__dirname, dir);
+};
 module.exports = {
   configureWebpack: {
     resolve: {
@@ -9,5 +14,9 @@ module.exports = {
         views: "@/views"
       }
     }
+  },
+
+  css: {
+    modules: true
   }
 };

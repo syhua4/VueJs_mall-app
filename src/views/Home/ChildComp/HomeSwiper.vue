@@ -1,6 +1,6 @@
 <template>
   <swiper>
-    <swiper-item v-for="(banner, index) in banner" :key="index">
+    <swiper-item lazy v-for="(banner, index) in banner" :key="index">
       <a :href="banner.link">
         <img :src="banner.image" alt />
       </a>

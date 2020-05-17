@@ -42,7 +42,6 @@ export default {
 
 .tabbar-item .tabbar-icon {
   display: inline-block;
-  margin-top: 4px;
-  font-size: 25px;
+  font-size: 0.4rem;
 }
 </style>

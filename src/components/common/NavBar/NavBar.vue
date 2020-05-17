@@ -20,16 +20,18 @@ export default {
 
 <style scoped>
 .navbar {
-  height: 44px;
+  width: 100%;
+  height: 0.92rem;
   text-align: center;
-  line-height: 44px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  line-height: 0.92rem;
+  box-shadow: 0 0.01rem 0.01rem rgba(0, 0, 0, 0.1);
   display: flex;
+  padding: 0.15rem 0.1rem;
 }
 
 .left,
 .right {
-  width: 40px;
+  width: 1rem;
 }
 .center {
   flex: 1;

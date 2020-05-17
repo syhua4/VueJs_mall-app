@@ -1,23 +1,16 @@
 <template>
   <div class="swiper-wrapper">
-    <div
-      class="swiper"
-      @touchstart="touchStart"
-      @touchmove="touchMove"
-      @touchend="touchEnd"
-    >
+    <div class="swiper" @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd">
       <slot />
     </div>
-    <div class="indicator">
-      <slot name="indicator" v-if="showIndicator && slideCount > 1">
-        <div
-          class="indicator-item"
-          v-for="(item, index) in slideCount"
-          :key="index"
-          :style="isActive(index)"
-        ></div>
-      </slot>
-    </div>
+    <ul class="indicator" v-show="showIndicator && slideCount > 1">
+      <li
+        class="indicator-item"
+        v-for="(item, index) in slideCount"
+        :key="index"
+        :style="isActive(index)"
+      ></li>
+    </ul>
   </div>
 </template>
 
@@ -135,7 +128,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .swiper-wrapper {
   position: relative;
   overflow: hidden;
@@ -145,28 +138,23 @@ export default {
   display: flex;
   transform: translateX(0%);
 }
+
 .indicator {
   width: 100%;
-  height: 15%;
-  display: flex;
   position: absolute;
-  bottom: 3px;
-  padding-left: 5px;
-  background-image: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.3),
-    rgba(0, 0, 0, 0)
-  );
+  bottom: 0.2rem;
+  padding: 0.1rem 0.15rem;
+  z-index: 1;
   align-items: center;
 }
 .indicator-item {
   box-sizing: border-box;
   display: inline-block;
-  width: 8px;
-  height: 8px;
+  width: 0.15rem;
+  height: 0.15rem;
   border-radius: 50%;
   background-color: #fff;
-  margin: 0 3px;
+  margin: 0 0.1rem;
 }
 
 .indicator-item.active {

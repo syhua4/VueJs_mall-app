@@ -1,6 +1,8 @@
 <template>
   <div class="app">
-    <router-view />
+    <keep-alive exclude="Detail">
+      <router-view />
+    </keep-alive>
     <tab-bar activeColor="red" />
   </div>
 </template>
@@ -16,12 +18,13 @@ export default {
 
 <style>
 @import url("assets/css/base.css");
-@import url("//at.alicdn.com/t/font_1804924_qp6hamlg87.css");
+@import url("//at.alicdn.com/t/font_1804924_trmptyfgn7.css");
 
 .app {
   font-size: initial;
   margin: 0 auto;
   min-width: 320px;
   max-width: 7.5rem;
+  height: 100%;
 }
 </style>

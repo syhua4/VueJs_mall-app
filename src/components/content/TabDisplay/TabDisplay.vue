@@ -1,10 +1,6 @@
 <template>
   <div class="tab-display">
-    <tab-display-item
-      v-for="(item, index) in display"
-      :key="item.iid + index"
-      :goods="item"
-    />
+    <tab-display-item v-for="(item, index) in display" :key="item + index" :goods="item" />
   </div>
 </template>
 

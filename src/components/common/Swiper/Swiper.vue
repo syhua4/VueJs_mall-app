@@ -1,6 +1,11 @@
 <template>
   <div class="swiper-wrapper">
-    <div class="swiper" @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd">
+    <div
+      class="swiper"
+      @touchstart="touchStart"
+      @touchmove="touchMove"
+      @touchend="touchEnd"
+    >
       <slot />
     </div>
     <ul class="indicator" v-show="showIndicator && slideCount > 1">
@@ -60,7 +65,6 @@ export default {
       let el = document.getElementsByClassName("swiper")[0];
       let slides = el.getElementsByClassName("swiper-item");
       this.slideCount = slides.length;
-      console.log(this.slideCount);
       if (this.slideCount > 1) {
         let cloneFirst = slides[0].cloneNode(true);
         let cloneLast = slides[this.slideCount - 1].cloneNode(true);

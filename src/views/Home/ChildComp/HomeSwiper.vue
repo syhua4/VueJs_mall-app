@@ -1,8 +1,8 @@
 <template>
-  <swiper>
+  <swiper v-if="banner.length > 0">
     <swiper-item lazy v-for="(banner, index) in banner" :key="index">
       <a :href="banner.link">
-        <img :src="banner.image" alt />
+        <img :src="banner.image" @load="imgLoaded" />
       </a>
     </swiper-item>
   </swiper>
@@ -20,6 +20,19 @@ export default {
     banner: {
       type: Array,
       default: []
+    }
+  },
+  data() {
+    return {
+      isLoaded: false
+    };
+  },
+  methods: {
+    imgLoaded() {
+      if (!this.isLoaded) {
+        this.$emit("swiperImageLoaded");
+        this.isLoaded = true;
+      }
     }
   }
 };

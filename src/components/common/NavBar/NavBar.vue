@@ -20,13 +20,14 @@ export default {
 
 <style scoped>
 .navbar {
+  position: relative;
+  box-shadow: 0 0.02rem 0.02rem rgba(0, 0, 0, 0.1);
+  z-index: 10;
   width: 100%;
   height: 0.92rem;
-  text-align: center;
   line-height: 0.92rem;
-  box-shadow: 0 0.01rem 0.01rem rgba(0, 0, 0, 0.1);
+  text-align: center;
   display: flex;
-  padding: 0.15rem 0.1rem;
 }
 
 .left,

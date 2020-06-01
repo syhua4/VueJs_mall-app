@@ -28,7 +28,6 @@ export default {
   text-align: center;
   width: 100%;
   justify-content: space-evenly;
-  margin-bottom: 0.3rem;
 }
 .recommend-item {
   width: 20%;

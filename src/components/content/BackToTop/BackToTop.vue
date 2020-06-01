@@ -18,11 +18,14 @@ export default {
   border-radius: 50%;
   width: 0.3rem;
   height: 0.3rem;
-  position: absolute;
-  z-index: 10;
+  outline: 1px solid red;
+  position: fixed;
   right: 0.2rem;
-  bottom: 1.2rem;
+  /* bottom: 1.2rem; */
+  /* top: 11rem; */
+  top: calc(100% - 1.9rem);
   box-shadow: 0rem 0.02rem 0.1rem rgba(0, 0, 0, 0.2);
+  z-index: 200;
 }
 
 .icon-top {

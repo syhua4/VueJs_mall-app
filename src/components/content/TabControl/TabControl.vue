@@ -4,7 +4,7 @@
       v-for="(tab, index) in tabs"
       :key="index"
       class="tab-control-item"
-      :class="{ active: index === curIndex }"
+      :class="{ active: curIndex === index}"
       @click="tabClick(index)"
     >
       <span>{{ tab }}</span>
@@ -23,7 +23,8 @@ export default {
   },
   data() {
     return {
-      curIndex: 0
+      curIndex: 0,
+      clicked: null
     };
   },
   methods: {
@@ -39,10 +40,10 @@ export default {
 .tab-control {
   display: flex;
   text-align: center;
-  height: 0.82rem;
   line-height: 0.82rem;
   font-size: 0.28rem;
   box-shadow: 0 0.02rem 0.02rem rgba(0, 0, 0, 0.1);
+  background-color: #fff;
 }
 
 .tab-control-item {

@@ -25,11 +25,10 @@ export default {
   },
   methods: {
     itemClick() {
-      if (this.$route.path.indexOf(this.path) === -1) {
+      if (this.path && this.$route.path.indexOf(this.path) === -1) {
         this.$router.push(this.path);
       }
       // console.log(this.$router);
-      console.log(this.$route.path.indexOf(this.path));
     }
   }
 };

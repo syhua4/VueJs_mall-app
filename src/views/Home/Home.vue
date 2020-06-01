@@ -3,25 +3,28 @@
     <nav-bar class="home-nav">
       <div slot="center" class="nav-title">购物街</div>
     </nav-bar>
+    <tab-control
+      :tabs="['流行', '新款', '精选']"
+      @tabClick="tabClick"
+      v-show="isTabFixed"
+      class="fixed"
+      ref="tabControlTop"
+    />
     <scroll
-      class="content"
+      class="wrapper"
       ref="scroll"
       :probe-type="3"
       :pull-up-load="true"
       @scrollPos="contentScroll"
       @loadMore="loadMore"
     >
-      <swiper :banner="banner" />
+      <swiper :banner="banner" @swiperImageLoaded="swiperImageLoaded" />
       <recommend :recommend="recommend" />
       <featured />
-      <tab-control
-        class="tab-control"
-        :tabs="['流行', '新款', '精选']"
-        @tabClick="tabClick"
-      />
+      <tab-control :tabs="['流行', '新款', '精选']" @tabClick="tabClick" ref="tabControl" />
       <tab-display :display="getGoods" />
     </scroll>
-    <back-to-top @click.native="backTop" v-show="showBackTop" />
+    <back-to-top @click.native="backTop" v-if="showBackTop" />
   </div>
 </template>
 
@@ -35,10 +38,11 @@ import Scroll from "components/common/Scroll/Scroll";
 
 import TabControl from "components/content/TabControl/TabControl";
 import TabDisplay from "components/content/TabDisplay/TabDisplay";
-import BackToTop from "components/content/BackToTop/BackToTop";
 
 import { getHomeData, getTabData } from "network/home";
 import { debounce } from "common/utils";
+import { backTopMixin } from "common/mixin";
+
 export default {
   name: "Home",
   components: {
@@ -48,9 +52,9 @@ export default {
     NavBar,
     Scroll,
     TabControl,
-    TabDisplay,
-    BackToTop
+    TabDisplay
   },
+  mixins: [backTopMixin],
   data() {
     return {
       banner: [],
@@ -61,8 +65,18 @@ export default {
         sell: { page: 0, list: [] }
       },
       currentType: "pop",
-      showBackTop: false
+      tabOffsetTop: 0,
+      isTabFixed: false,
+      saveYPosition: 0
     };
+  },
+  activated() {
+    this.$refs.scroll.refresh();
+    this.$refs.scroll.scrollTo(0, this.saveYPosition, 10);
+  },
+  deactivated() {
+    console.log("deactive");
+    this.saveYPosition = this.$refs.scroll.getYPosition();
   },
   created() {
     this.getHomeData();
@@ -73,7 +87,7 @@ export default {
   },
   mounted() {
     const refresh = debounce(this.$refs.scroll.refresh, 100);
-    this.$bus.$on("imgLoaded", () => {
+    this.$bus.$on("homeImgLoaded", () => {
       refresh();
     });
   },
@@ -106,24 +120,32 @@ export default {
         default:
           this.currentType = "pop";
       }
+
+      this.$refs.tabControl.curIndex = index;
+      this.$refs.tabControlTop.curIndex = index;
     },
-    backTop() {
-      this.$refs.scroll.scrollTo(0, 0, 500);
-    },
+
     contentScroll(position) {
-      let showPos = document.body.scrollHeight + 350;
-      position.y <= -showPos
-        ? (this.showBackTop = true)
-        : (this.showBackTop = false);
+      this.isShowBackTop(position);
+      this.isTabFixed = position.y < this.tabOffsetTop;
     },
     loadMore() {
       this.getTabData(this.currentType);
       // this.$refs.scroll.refresh();
+    },
+    swiperImageLoaded() {
+      const navHeight =
+        0.92 *
+        parseInt(document.getElementsByTagName("html")[0].style.fontSize);
+      this.tabOffsetTop = -this.$refs.tabControl.$el.offsetTop + navHeight;
     }
   },
   computed: {
     getGoods() {
       return this.goods[this.currentType].list;
+    },
+    getHeight() {
+      return this.$refs.scroll.style.height;
     }
   }
 };
@@ -131,35 +153,30 @@ export default {
 
 <style scoped>
 .home {
-  background-color: #eee;
-  height: 100vh;
+  background-color: #efefef;
+  /* height: -webkit-fill-available; */
   position: relative;
 }
 .home-nav {
   background-color: var(--color-tint);
   color: #fff;
-  position: sticky;
-  left: 0;
-  right: 0;
-  top: 0;
-  z-index: 9;
-  /* margin-bottom: ; */
 }
 
 .home-nav .nav-title {
-  margin-top: -0.15rem;
   font-size: 0.45rem;
 }
-
 .tab-control {
-  position: sticky;
-  top: 0.88rem;
-  background-color: #fff;
+  position: relative;
   z-index: 9;
 }
+.wrapper {
+  height: var(--screen);
+}
 
-.content {
-  height: calc(100% - 1.9rem);
-  overflow: hidden;
+.fixed {
+  position: fixed;
+  top: 0.92rem;
+  left: 0;
+  right: 0;
 }
 </style>

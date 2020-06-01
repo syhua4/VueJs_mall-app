@@ -29,7 +29,8 @@ export default {
     this.scroll = new BScroll(this.$refs.wrapper, {
       probeType: this.probeType,
       pullUpLoad: this.pullUpLoad,
-      click: true
+      click: true,
+      bounce: false
     });
 
     if (this.probeType >= 2) {
@@ -52,10 +53,20 @@ export default {
       this.scroll && this.scroll.finishPullUp && this.scroll.finishPullUp();
     },
     refresh() {
+      console.log("----");
       this.scroll && this.scroll.refresh && this.scroll.refresh();
+    },
+    getYPosition() {
+      return this.scroll ? this.scroll.y : 0;
     }
   }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.content {
+  /* padding-top: 0.88rem; */
+  /* min-height: 100%; */
+  /* max-width: 7.5rem; */
+}
+</style>
